@@ -65,25 +65,41 @@ function doMerge(mainArray, startIdx, middleIdx, endIdx, auxiliaryArray, animati
     }
 }
 
-export function getQuickSortAnimation(array) {
+export function getQuickSortAnimations(array) {
 
 }
 function doQuick() {
 
 }
 
-export function getHeapSortAnimation(array) {
+export function getHeapSortAnimations(array) {
 
 }
 function doHeap() {
 
 }
 
-export function getBubbleSortAnimation(array) {
-
+export function getBubbleSortAnimations(array) {
+	const animations = [];
+	if (array.length <= 1) return array;
+	const auxiliaryArray = array.slice();
+	doBubble(array.length, 0, auxiliaryArray, animations);
+	return animations;
 }
-function doBubble() {
-
+function doBubble(mainArray, startIdx, auxiliaryArray, animations) {
+	
+	for (let i = startIdx; i < mainArray - 1; i++) {
+		for (let j = i + 1; j < mainArray; j++) {
+			animations.push([i, j]);
+			animations.push([i, j]);
+			if (auxiliaryArray[i] > auxiliaryArray[j]) {
+				animations.push(auxiliaryArray[j]);
+			} else {
+				animations.push(auxiliaryArray[i]);
+			}
+			
+		}
+	}
 }
 /*
 array = {30 20 10 50 22 33 55}
@@ -152,3 +168,37 @@ mergeSortHelper(array, 0, 6, auxiliaryArray, [])
 	}
 	doMerge()
 */
+
+export const mergeSort = array => {
+	if (array.length === 1) return array;
+	const middleIdx = Math.floor(array.length/2);
+	const firstHalf = mergeSort(array.slice(0, middleIdx));
+	const secondHalf = mergeSort(array.slice(middleIdx));
+	const sortedArray = [];
+	let i = 0, j = 0;
+	while (i < firstHalf.length && j < secondHalf.length) {
+		if (firstHalf[i] < secondHalf[j]) {
+			sortedArray.push(firstHalf[i++]);
+		} else {
+			sortedArray.push(secondHalf[j++]);
+		}
+	}
+	while (i < firstHalf.length) sortedArray.push(firstHalf(i++));
+	while (j < firstHalf.length) sortedArray.push(secondHalf(j++));
+	return sortedArray;
+};
+
+export const bubbleSort = array => {
+	if (array.length === 1) return array;
+	var aux;
+	for (let i = 0; i < array.length - 1; i++) {
+		for (let j = i + 1; j < array.length; j++) {
+			if (array[i] > array[j]) {
+				aux = array[i];
+				array[i] = array[j];
+				array[j] = aux;
+			}
+		}
+	}
+	return array;
+};
