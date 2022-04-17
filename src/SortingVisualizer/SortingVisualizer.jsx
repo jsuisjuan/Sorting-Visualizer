@@ -143,8 +143,8 @@ export default class SortingVisualizer extends React.Component {
                 array.push(randomIntFromInterval(-1000, 1000));
             }
             const javaScriptSortedArray = array.slice().sort((a, b) => a - b); 
-            const bubbleSortedArray = sortingAlgorithms.bubbleSort(array.slice());
-            console.log(arrayAreEqual(javaScriptSortedArray, bubbleSortedArray));
+            const quickSortedArray = getQuickSortAnimations(array.slice());
+            console.log(arrayAreEqual(javaScriptSortedArray, quickSortedArray));
         }
     }
 

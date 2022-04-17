@@ -65,13 +65,48 @@ function doMerge(mainArray, startIdx, middleIdx, endIdx, auxiliaryArray, animati
     }
 }
 
+//------------------------------------------------- QUICKSORT ----------------------------------------------------//
 export function getQuickSortAnimations(array) {
-
+	if (array.length <= 1) return array;
+	doQuick(array, 0, array.length - 1);
+	return array;
 }
-function doQuick() {
 
+function swap(array, leftIdx, rightIdx) {
+	var temp = array[leftIdx];
+	array[leftIdx] = array[rightIdx];
+	array[rightIdx] = temp;
 }
 
+function partition(array, left, right) {
+	var pivot = array[Math.floor((right + left) / 2)];
+	var i = left, j = right;
+	while (i <= j) {
+		while (array[i] < pivot) i++;
+		while (array[j] > pivot) j--;
+		if (i <= j) {
+			swap(array, i, j);
+			i++;
+			j--;
+		}
+	}
+	return i;
+}
+function doQuick(array, left, right) {
+	var index;
+	if (array.length > 1) {
+		index = partition(array, left, right);
+		if (left < index - 1) {
+			doQuick(array, left, index - 1);
+		}
+		if (index < right) {
+			doQuick(array, index, right);
+		}
+	}
+	return array;
+}
+
+//------------------------------------------------- HEAPSORT ----------------------------------------------------//
 export function getHeapSortAnimations(array) {
 
 }
@@ -79,6 +114,7 @@ function doHeap() {
 
 }
 
+//------------------------------------------------- BUBBLESORT ----------------------------------------------------//
 export function getBubbleSortAnimations(array) {
 	const animations = [];
 	if (array.length <= 1) return array;
@@ -101,74 +137,12 @@ function doBubble(mainArray, startIdx, auxiliaryArray, animations) {
 		}
 	}
 }
-/*
-array = {30 20 10 50 22 33 55}
-getMergeSortAnimation(array)
-	animation = []
-	auxiliaryArray = copy of array
-	mergeSortHelper(array, 0, 6, auxiliaryArray, [])
 
-mergeSortHelper(array, 0, 6, auxiliaryArray, [])
-	OBS.: mainArray = array
-		startIdx = 0
-		endIdx = 6
-		auxiliaryArray = auxiliaryArray
-		animations = []
-	if(0 === 6) return.....0 !== 6
-	middleIdx = 3
-	mergeSortHelper(auxiliaryArray, 0, 3, array, []) {----------------------------------------------------------------------------------
-		if(0 === 3) return...0 !== 3
-		middleIdx = 1
-		mergeSortHelper(auxiliaryArray, 0, 1, array, []) {0000000000000000000000000000000000000000000000000000000000000000000000000000
-			if(0 === 1) return...0 !== 1
-			middleIdx = 0
-			mergeSortHelper(auxiliaryArray, 0, 0, array, [])aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-				if(0 === 0) return 0
-			mergeSortHelper(auxiliaryArray, 1, 1, array, [])aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-				if(1 === 1) return 0
-			doMerge(array, 0, 0, 1, auxiliarArray, []) {
-				k = 0
-				i = 0
-				j = 1
-				while(0 <= 1 && 1 <= 1) {
-					[].push([0, 1])
-					[].push([0, 1])
-					if(30 <= 20)....
-					else {
-						[].push(30, auxiliaryArray[1])
-					{	
-				}
-			}
-		}
-		mergeSortHelper(auxiliaryArray, 2, 3, array, []) {00000000000000000000000000000000000000000000000000000000000000000000000000000
-			if(2 === 3) return...2 !== 3
-			middleIdx = 2
-			mergeSortHelper(auxiliaryArray, 2, 2, array, [])lllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll
-				if(2 === 2) return 0
-			mergeSortHelper(auxiliaryArray, 3, 3, array, [])lllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll
-				if(3 === 3) return 0
-			doMerge()
-		}
-		doMerge()
-	}
-	mergeSortHelper(auxiliaryArray, 4, 6, array, []) {----------------------------------------------------------------------------
-		if(4 === 6) return...4 !== 6
-		middleIdx = 5
-		mergeSortHelper(auxiliaryArray, 4, 5, array, []) {uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu
-			if(4 === 5) return...4 !== 5
-			middleIdx = 4
-			mergeSortHelper(auxiliaryArray, 4, 4, array, [])ppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp
-				if(4 === 4) return 0
-			mergeSortHelper(auxiliaryArray, 5, 5, array, [])pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp
-				if(5 === 5) return 0
-			doMerge()
-		}
-		mergeSortHelper(auxiliaryArray, 6, 6, array, [])uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu
-			if (6 === 6) return 0
-	}
-	doMerge()
-*/
 
+
+
+
+//---------------------------------------------------------------------------------------------------------------//
 export const mergeSort = array => {
 	if (array.length === 1) return array;
 	const middleIdx = Math.floor(array.length/2);
@@ -188,6 +162,11 @@ export const mergeSort = array => {
 	return sortedArray;
 };
 
+export const quickSort = array => {
+
+};
+
+//working correct
 export const bubbleSort = array => {
 	if (array.length === 1) return array;
 	var aux;
